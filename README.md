@@ -222,4 +222,4 @@ int main() {
 
 ## Вывод 
 ![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/51188321-0ccb-4765-829e-83a53ff4fd2f)
-![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/39d3353d-2720-4c4a-a4b9-7eacdda308e9)
+![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/705b116d-b64e-4e7f-b1ab-52f78606f8e0)
