@@ -6,13 +6,13 @@
 
 using namespace std;
 
-// Структура для хранения данных эксперимента
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С… СЌРєСЃРїРµСЂРёРјРµРЅС‚Р°
 struct DataPoint {
     double x;
     double y;
 };
 
-// Функция для вычисления линии регрессии (метод наименьших квадратов)
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё (РјРµС‚РѕРґ РЅР°РёРјРµРЅСЊС€РёС… РєРІР°РґСЂР°С‚РѕРІ)
 void calculateRegressionLine(const vector<DataPoint>& data, double& slope, double& intercept) {
     double sumX = 0.0, sumY = 0.0, sumXY = 0.0, sumX2 = 0.0;
 
@@ -30,7 +30,7 @@ void calculateRegressionLine(const vector<DataPoint>& data, double& slope, doubl
 
     double denominator = n * sumX2 - sumX * sumX;
 
-    // Проверка деления на ноль
+    // РџСЂРѕРІРµСЂРєР° РґРµР»РµРЅРёСЏ РЅР° РЅРѕР»СЊ
     if (denominator == 0) {
         slope = 0.0;
         intercept = 0.0;
@@ -41,7 +41,7 @@ void calculateRegressionLine(const vector<DataPoint>& data, double& slope, doubl
     intercept = (sumY - slope * sumX) / n;
 }
 
-// Функция для вычисления коэффициента корреляции
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РєРѕСЂСЂРµР»СЏС†РёРё
 double calculateCorrelationCoefficient(const vector<DataPoint>& data) {
     double sumX = 0.0, sumY = 0.0, sumXY = 0.0, sumX2 = 0.0, sumY2 = 0.0;
 
@@ -61,7 +61,7 @@ double calculateCorrelationCoefficient(const vector<DataPoint>& data) {
     double numerator = n * sumXY - sumX * sumY;
     double denominator = sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
 
-    // Проверка деления на ноль
+    // РџСЂРѕРІРµСЂРєР° РґРµР»РµРЅРёСЏ РЅР° РЅРѕР»СЊ
     if (denominator == 0) {
         return 0.0;
     }
@@ -69,7 +69,7 @@ double calculateCorrelationCoefficient(const vector<DataPoint>& data) {
     return numerator / denominator;
 }
 
-// Функция для подбора функциональной зависимости заданного вида (y = Ax^3 + D)
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕРґР±РѕСЂР° С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕР№ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё Р·Р°РґР°РЅРЅРѕРіРѕ РІРёРґР° (y = Ax^3 + D)
 void fitFunction(const vector<DataPoint>& data, double& A, double& D) {
     double sumX = 0.0, sumY = 0.0, sumX2 = 0.0, sumX3 = 0.0, sumX2Y = 0.0;
 
@@ -88,20 +88,20 @@ void fitFunction(const vector<DataPoint>& data, double& A, double& D) {
 
     int n = data.size();
 
-    double denominator = n * sumX2 * sumX2 * sumX2 - sumX * sumX2 * sumX2 * sumX + n * sumX * sumX * sumX3 - sumX * sumX * sumX2 * sumX;
+    double denominator = n * sumX2 * sumX2 * sumX - sumX * sumX2 * sumX2 - n * sumX * sumX * sumX3 + sumX * sumX * sumX2 * sumX;
 
-    // Проверка деления на ноль
+    // РџСЂРѕРІРµСЂРєР° РґРµР»РµРЅРёСЏ РЅР° РЅРѕР»СЊ
     if (denominator == 0) {
         A = 0.0;
         D = 0.0;
         return;
     }
 
-    A = (n * sumX2Y * sumX2 * sumX2 - sumX2 * sumX2 * sumX2Y * sumX + sumX * sumX * sumX2 * sumY - sumX * sumX * sumX3 * sumY) / denominator;
-    D = (n * sumX * sumX2Y - sumX2 * sumX2Y + sumX * sumX3 * sumY - sumX * sumX2 * sumY) / denominator;
+    A = (n * sumX2Y * sumX2 - sumX2 * sumX2Y - sumX * sumX2 * sumY + sumX * sumX3 * sumY) / denominator;
+    D = (n * sumX * sumX2Y - sumX2 * sumX2Y - sumX * sumX3 * sumY + sumX * sumX2 * sumY) / denominator;
 }
 
-// Функция для вычисления суммарной квадратной ошибки линии регрессии
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ СЃСѓРјРјР°СЂРЅРѕР№ РєРІР°РґСЂР°С‚РЅРѕР№ РѕС€РёР±РєРё Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё
 double calculateSumSquaredError(const vector<DataPoint>& data, double slope, double intercept) {
     double sumError = 0.0;
 
@@ -117,7 +117,7 @@ double calculateSumSquaredError(const vector<DataPoint>& data, double slope, dou
     return sumError;
 }
 
-// Функция для вычисления средней ошибки линии регрессии
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ СЃСЂРµРґРЅРµР№ РѕС€РёР±РєРё Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё
 double calculateMeanError(const vector<DataPoint>& data, double slope, double intercept) {
     int n = data.size();
     double sumError = calculateSumSquaredError(data, slope, intercept);
@@ -126,24 +126,24 @@ double calculateMeanError(const vector<DataPoint>& data, double slope, double in
     return meanError;
 }
 
-// Функция для построения графика
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РіСЂР°С„РёРєР°
 void plotGraph(const vector<DataPoint>& data, double A, double D, double slope, double intercept) {
     ofstream dataFile("data.csv");
     ofstream regressionLineFile("regression_line.csv");
     ofstream fittedFunctionFile("fitted_function.csv");
 
-    // Запись данных эксперимента в файл
+    // Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… СЌРєСЃРїРµСЂРёРјРµРЅС‚Р° РІ С„Р°Р№Р»
     for (const DataPoint& point : data) {
         dataFile << point.x << "," << point.y << "\n";
     }
 
-    // Запись точек линии регрессии в файл
+    // Р—Р°РїРёСЃСЊ С‚РѕС‡РµРє Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё РІ С„Р°Р№Р»
     for (const DataPoint& point : data) {
         double y = slope * point.x + intercept;
         regressionLineFile << point.x << "," << y << "\n";
     }
 
-    // Запись точек подобранной функции в файл
+    // Р—Р°РїРёСЃСЊ С‚РѕС‡РµРє РїРѕРґРѕР±СЂР°РЅРЅРѕР№ С„СѓРЅРєС†РёРё РІ С„Р°Р№Р»
     for (const DataPoint& point : data) {
         double y = A * pow(point.x, 3) + D;
         fittedFunctionFile << point.x << "," << y << "\n";
@@ -157,11 +157,11 @@ void plotGraph(const vector<DataPoint>& data, double A, double D, double slope, 
     double meanError = calculateMeanError(data, slope, intercept);
     double correlationCoefficient = calculateCorrelationCoefficient(data);
 
-    cout << "Уравнение регрессии: y = " << slope << "x + " << intercept << endl;
-    cout << "Коэффициент корреляции: " << correlationCoefficient << endl;
-    cout << "Суммарная квадратичная ошибка (SSE) для линии регрессии: " << sumSquaredError << endl;
-    cout << "Средняя ошибка (MAE) для линии регрессии: " << meanError << endl;
-    cout << "Корни системы: A = " << A << ", D = " << D << endl;
+    cout << "РЈСЂР°РІРЅРµРЅРёРµ СЂРµРіСЂРµСЃСЃРёРё: y = " << slope << "x + " << intercept << endl;
+    cout << "РљРѕСЌС„С„РёС†РёРµРЅС‚ РєРѕСЂСЂРµР»СЏС†РёРё: " << correlationCoefficient << endl;
+    cout << "РЎСѓРјРјР°СЂРЅР°СЏ РєРІР°РґСЂР°С‚РёС‡РЅР°СЏ РѕС€РёР±РєР° (SSE) РґР»СЏ Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё: " << sumSquaredError << endl;
+    cout << "РЎСЂРµРґРЅСЏСЏ РѕС€РёР±РєР° (MAE) РґР»СЏ Р»РёРЅРёРё СЂРµРіСЂРµСЃСЃРёРё: " << meanError << endl;
+    cout << "РљРѕСЂРЅРё СЃРёСЃС‚РµРјС‹: A = " << A << ", D = " << D << endl;
 
     vector<DataPoint> fittedData;
 
@@ -173,9 +173,9 @@ void plotGraph(const vector<DataPoint>& data, double A, double D, double slope, 
     double fittedSumSquaredError = calculateSumSquaredError(fittedData, 0, 0);
     double fittedMeanError = calculateMeanError(fittedData, 0, 0);
 
-    cout << "Подобранная функциональная зависимость: y = " << A << "x^3 + " << D << endl;
-    cout << "Суммарная квадратичная ошибка (SSE) для подобранной функциональной зависимости: " << fittedSumSquaredError << endl;
-    cout << "Средняя ошибка (MAE) для подобранной функциональной зависимости: " << fittedMeanError << endl;
+    cout << "РџРѕРґРѕР±СЂР°РЅРЅР°СЏ С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅР°СЏ Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ: y = " << A << "x^3 + " << D << endl;
+    cout << "РЎСѓРјРјР°СЂРЅР°СЏ РєРІР°РґСЂР°С‚РёС‡РЅР°СЏ РѕС€РёР±РєР° (SSE) РґР»СЏ РїРѕРґРѕР±СЂР°РЅРЅРѕР№ С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕР№ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё: " << fittedSumSquaredError << endl;
+    cout << "РЎСЂРµРґРЅСЏСЏ РѕС€РёР±РєР° (MAE) РґР»СЏ РїРѕРґРѕР±СЂР°РЅРЅРѕР№ С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕР№ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё: " << fittedMeanError << endl;
 }
 
 int main() {
