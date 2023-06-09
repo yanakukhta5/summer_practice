@@ -103,7 +103,7 @@ void fitFunction(const vector<DataPoint>& data, double& A, double& D) {
 
     int n = data.size();
 
-    double denominator = n * sumX2 * sumX2 * sumX2 - sumX * sumX2 * sumX2 * sumX + n * sumX * sumX * sumX3 - sumX * sumX * sumX2 * sumX;
+    double denominator = n * sumX2 * sumX2 * sumX - sumX * sumX2 * sumX2 - n * sumX * sumX * sumX3 + sumX * sumX * sumX2 * sumX;
 
     // Проверка деления на ноль
     if (denominator == 0) {
@@ -112,8 +112,8 @@ void fitFunction(const vector<DataPoint>& data, double& A, double& D) {
         return;
     }
 
-    A = (n * sumX2Y * sumX2 * sumX2 - sumX2 * sumX2 * sumX2Y * sumX + sumX * sumX * sumX2 * sumY - sumX * sumX * sumX3 * sumY) / denominator;
-    D = (n * sumX * sumX2Y - sumX2 * sumX2Y + sumX * sumX3 * sumY - sumX * sumX2 * sumY) / denominator;
+    A = (n * sumX2Y * sumX2 - sumX2 * sumX2Y - sumX * sumX2 * sumY + sumX * sumX3 * sumY) / denominator;
+    D = (n * sumX * sumX2Y - sumX2 * sumX2Y - sumX * sumX3 * sumY + sumX * sumX2 * sumY) / denominator;
 }
 
 // Функция для вычисления суммарной квадратной ошибки линии регрессии
@@ -218,8 +218,10 @@ int main() {
 
     return 0;
 }
+
 ```
 
 ## Вывод 
-![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/51188321-0ccb-4765-829e-83a53ff4fd2f)
-![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/705b116d-b64e-4e7f-b1ab-52f78606f8e0)
+![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/0f5bc2f9-1abf-4a0f-afac-5a1c0153147d)
+![image](https://github.com/yanakukhta5/summer_practice/assets/113707769/d9890873-425c-4fe6-8c5c-9dd31f1e3648)
+
